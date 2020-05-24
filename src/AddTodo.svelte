@@ -2,21 +2,16 @@
 	import { todos } from './store.js';
 
 	function handleSubmit(e) {
-		e.preventDefault();
-		const { target } = e;
-		const task = target.elements.task.value;
+		const { task } = e.target.elements;
 
-		$todos = [...$todos, { task, id: Date.now() }];
+		$todos = [...$todos, { task: task.value, id: Date.now() }];
 
-		localStorage.setItem('todos', JSON.stringify($todos));
-
-		target.reset();
+		e.target.reset();
 	}
 </script>
 
 <div class="container">
-
-	<form on:submit={handleSubmit}>
+	<form on:submit|preventDefault={handleSubmit}>
 		<div class="form-group">
 			<label for="task">Task</label>
 			<input type="text" name="task" id="task" />
@@ -24,7 +19,6 @@
 
 		<button type="submit">Add Todo</button>
 	</form>
-
 </div>
 
 <style>

@@ -1,13 +1,9 @@
 <script>
-	import { fade } from 'svelte/transition';
-	import { flip } from 'svelte/animate';
 	import AddTodo from './AddTodo.svelte';
+	import TodoContent from './TodoContent.svelte';
 	import { todos } from './store.js';
-
-	function deleteTodo(id) {
-		$todos = $todos.filter(todo => todo.id !== id);
-		localStorage.setItem('todos', JSON.stringify($todos));
-	}
+	import { flip } from 'svelte/animate';
+	import { fade } from 'svelte/transition';
 </script>
 
 <main>
@@ -19,16 +15,10 @@
 		<ul>
 			{#each $todos as { task, id } (id)}
 				<li
-					in:fade={{ duration: 400 }}
+					class="todo"
 					animate:flip={{ duration: 200 }}
-					class="todo">
-					<span>task: {task}</span>
-					<button
-						class="delete"
-						aria-label="Delete Task"
-						on:click={() => deleteTodo(id)}>
-						&times;
-					</button>
+					in:fade={{ duration: 400 }}>
+					<TodoContent {id} {task} />
 				</li>
 			{/each}
 		</ul>
@@ -74,22 +64,5 @@
 
 	.todo:not(:last-child) {
 		margin-bottom: 0.5rem;
-	}
-
-	.delete {
-		color: var(--danger);
-		background: 0;
-		border: 0;
-		outline: 0;
-		border: 2px solid transparent;
-		padding: 0 0.25rem;
-		font-size: 1.25rem;
-		font-weight: 700;
-		cursor: pointer;
-		border: 2px solid transparent;
-	}
-
-	.delete:focus {
-		border: 2px solid var(--danger);
 	}
 </style>
