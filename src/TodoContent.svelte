@@ -50,17 +50,26 @@
 
 {#if editing}
 	<div class="form-group">
-		<label>Edit Task</label>
+		<label for={`edit-${id}`}>Edit Task</label>
 		<input
 			type="text"
 			bind:value={task}
+			name={`edit-${id}`}
 			id={`edit-${id}`}
 			bind:this={editInput}
 			on:keydown={handleKeydown} />
 	</div>
 {:else}
 	<div>
-		<input type="checkbox" name="idk" id="idk" bind:checked={done} />
+		<label for={`done-${id}`} class="visually-hidden">
+			Toggle Done Status
+		</label>
+		<input
+			class="done-input"
+			type="checkbox"
+			name={`done-${id}`}
+			id={`done-${id}`}
+			bind:checked={done} />
 		<span class={`task ${done && 'done'}`}>{task}</span>
 	</div>
 {/if}
@@ -141,5 +150,19 @@
 
 	.form-group input:focus {
 		border: 1px solid var(--primary);
+	}
+
+	.visually-hidden {
+		position: absolute !important;
+		height: 1px;
+		width: 1px;
+		overflow: hidden;
+		clip: rect(1px 1px 1px 1px);
+		clip: rect(1px, 1px, 1px, 1px);
+		white-space: nowrap;
+	}
+
+	.done-input {
+		margin-right: 0.5rem;
 	}
 </style>
