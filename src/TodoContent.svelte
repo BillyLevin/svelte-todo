@@ -3,10 +3,14 @@
 
 	export let currentTodo;
 
-	let { id, task } = currentTodo;
+	let { id, task, done } = currentTodo;
 
 	let editing = false;
 	let editInput;
+
+	$: {
+		updateDoneStatus(done);
+	}
 
 	function deleteTodo() {
 		$todos = $todos.filter(todo => todo.id !== id);
@@ -34,6 +38,14 @@
 			toggleEditMode();
 		}
 	}
+
+	function updateDoneStatus(done) {
+		$todos = $todos.map(todo => {
+			if (todo.id !== id) return todo;
+
+			return { ...todo, done };
+		});
+	}
 </script>
 
 {#if editing}
@@ -47,7 +59,10 @@
 			on:keydown={handleKeydown} />
 	</div>
 {:else}
-	<span class="task">{task}</span>
+	<div>
+		<input type="checkbox" name="idk" id="idk" bind:checked={done} />
+		<span class={`task ${done && 'done'}`}>{task}</span>
+	</div>
 {/if}
 <div class="functions">
 	<button class="edit" on:click={toggleEditMode}>
@@ -65,6 +80,10 @@
 <style>
 	.task {
 		font-weight: 700;
+	}
+
+	.done {
+		text-decoration: line-through;
 	}
 
 	.delete {

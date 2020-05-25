@@ -4,7 +4,7 @@
 	function handleSubmit(e) {
 		const { task } = e.target.elements;
 
-		$todos = [...$todos, { task: task.value, id: Date.now() }];
+		$todos = [...$todos, { task: task.value, id: Date.now(), done: false }];
 
 		e.target.reset();
 	}
