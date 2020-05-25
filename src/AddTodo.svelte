@@ -81,4 +81,18 @@
 	button:active {
 		background-color: var(--primaryDark);
 	}
+
+	@media only screen and (max-width: 600px) {
+		form {
+			flex-direction: column;
+			align-items: flex-start;
+			width: 100%;
+			margin: 0 1rem;
+		}
+
+		.form-group {
+			margin-right: 0;
+			margin-bottom: 1rem;
+		}
+	}
 </style>

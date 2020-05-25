@@ -65,4 +65,11 @@
 	.todo:not(:last-child) {
 		margin-bottom: 0.5rem;
 	}
+
+	@media only screen and (max-width: 600px) {
+		h1 {
+			font-size: 2.5rem;
+			margin: 2rem 0;
+		}
+	}
 </style>
