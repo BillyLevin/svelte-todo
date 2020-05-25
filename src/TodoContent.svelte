@@ -1,10 +1,9 @@
 <script>
 	import { todos } from './store.js';
 
-	export let task;
-	export let id;
+	export let currentTodo;
 
-	let todo = $todos.find(todo => todo.id === id).task;
+	let { id, task } = currentTodo;
 
 	let editing = false;
 	let editInput;
@@ -29,6 +28,12 @@
 			return { ...todo, task: newTask };
 		});
 	}
+
+	function handleKeydown(e) {
+		if (e.key === 'Enter') {
+			toggleEditMode();
+		}
+	}
 </script>
 
 {#if editing}
@@ -36,9 +41,10 @@
 		<label>Edit Task</label>
 		<input
 			type="text"
-			bind:value={todo}
+			bind:value={task}
 			id={`edit-${id}`}
-			bind:this={editInput} />
+			bind:this={editInput}
+			on:keydown={handleKeydown} />
 	</div>
 {:else}
 	<span class="task">{task}</span>

@@ -13,12 +13,12 @@
 
 	<article>
 		<ul>
-			{#each $todos as { task, id } (id)}
+			{#each $todos as todo (todo.id)}
 				<li
 					class="todo"
 					animate:flip={{ duration: 200 }}
 					in:fade={{ duration: 400 }}>
-					<TodoContent {id} {task} />
+					<TodoContent currentTodo={todo} />
 				</li>
 			{/each}
 		</ul>
