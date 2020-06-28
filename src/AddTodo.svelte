@@ -1,12 +1,12 @@
 <script>
 	import { todos } from './store.js';
 
+	let task;
+
 	function handleSubmit(e) {
-		const { task } = e.target.elements;
+		$todos = [...$todos, { task, id: Date.now(), done: false }];
 
-		$todos = [...$todos, { task: task.value, id: Date.now(), done: false }];
-
-		e.target.reset();
+		task = '';
 	}
 </script>
 
@@ -14,7 +14,7 @@
 	<form on:submit|preventDefault={handleSubmit}>
 		<div class="form-group">
 			<label for="task">Task</label>
-			<input type="text" name="task" id="task" />
+			<input type="text" name="task" id="task" bind:value={task} />
 		</div>
 
 		<button type="submit">Add Todo</button>
